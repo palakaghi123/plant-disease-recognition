@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+data/
+plant_model.pth
+*.pth
+*.pt
+.streamlit/secrets.toml
