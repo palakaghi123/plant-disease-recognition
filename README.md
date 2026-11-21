@@ -60,6 +60,18 @@ python plant_disease.py train --data-dir data/PlantVillage --epochs 3 --max-per-
 
 This quick model uses fewer examples and a frozen feature extractor; its predictions are less reliable than a full training run.
 
+## Compare traditional classifiers
+
+To compare three traditional classifiers on the same stratified 80/10/10 sample split, run:
+
+```powershell
+python compare_classifiers.py --data-dir data/PlantVillage --max-per-class 125
+```
+
+The script extracts 512-dimensional features with a frozen ImageNet-pretrained ResNet18, then trains an RBF-kernel SVM, Random Forest, and Decision Tree on the training split. It prints test accuracy, macro-F1, and a confusion matrix for each classifier. The validation split is held out and the test split is not used during fitting. This comparison uses frozen ImageNet features, while the quick ResNet18 demo above trains its classification head on PlantVillage, so the results compare two different training approaches.
+
+The split is stratified by image, not by leaf identity. PlantVillage contains multiple images of some leaves, so related images may land in both training and test splits; test scores may therefore be optimistic and should be treated as a classroom demo, not a field-accuracy estimate.
+
 ## Predict one image
 
 ```powershell
